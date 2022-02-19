@@ -12,9 +12,9 @@ const { actions, reducer } = createSlice({
   name: 'currencies',
   initialState,
   reducers: {
-    currenciesRequest: helpers.currenciesRequest,
-    currenciesFailed: helpers.currenciesFailed,
-    currenciesSuccess: helpers.currenciesSuccess,
+    getCurrenciesRequest: helpers.getCurrenciesRequest,
+    getCurrenciesFailed: helpers.getCurrenciesFailed,
+    getCurrenciesSuccess: helpers.getCurrenciesSuccess,
   },
 })
 

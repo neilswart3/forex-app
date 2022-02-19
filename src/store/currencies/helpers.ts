@@ -1,22 +1,28 @@
-import { CurrenciesFailed, CurrenciesState, CurrenciesSuccess } from './types'
+import {
+  CurrenciesFailedPayload,
+  CurrenciesState,
+  CurrenciesSuccessPayload,
+} from './types'
 
-export const currenciesRequest = (state: CurrenciesState): CurrenciesState => ({
+export const getCurrenciesRequest = (
+  state: CurrenciesState
+): CurrenciesState => ({
   ...state,
   isLoading: true,
 })
 
-export const currenciesFailed = (
+export const getCurrenciesFailed = (
   state: CurrenciesState,
-  { payload }: CurrenciesFailed
+  { payload }: CurrenciesFailedPayload
 ): CurrenciesState => ({
   ...state,
   isLoading: false,
   error: payload.error,
 })
 
-export const currenciesSuccess = (
+export const getCurrenciesSuccess = (
   state: CurrenciesState,
-  { payload }: CurrenciesSuccess
+  { payload }: CurrenciesSuccessPayload
 ): CurrenciesState => ({
   ...state,
   isLoading: false,

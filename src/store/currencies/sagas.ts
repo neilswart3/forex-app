@@ -11,14 +11,16 @@ function* handleCurrencies() {
 
     const data: CurrenciesData = yield call([service, 'getCurrencies'])
 
-    yield put(actions.currenciesSuccess({ data }))
+    yield put(actions.getCurrenciesSuccess({ data }))
   } catch (err) {
     const error = err as Error
 
-    yield put(actions.currenciesFailed({ error: error.message }))
+    yield put(actions.getCurrenciesFailed({ error: error.message }))
   }
 }
 
 export default function* currenciesWatcher() {
-  yield all([takeLatest(currenciesTypes.CURRENCIES_REQUEST, handleCurrencies)])
+  yield all([
+    takeLatest(currenciesTypes.GET_CURRENCIES_REQUEST, handleCurrencies),
+  ])
 }

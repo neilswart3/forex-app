@@ -1,8 +1,8 @@
 import Account from './Account'
-import { AccountData, AccountTransferPayload } from './types'
+import { AccountsData, AccountTransferPayload } from './types'
 import BaseAccountsService from './BaseAccountsService'
 
-const initData: AccountData = {
+const initData: AccountsData = {
   EUR: new Account({ code: 'EUR', name: 'European Euro', value: 1000 }),
   GBP: new Account({ code: 'GBP', name: 'Great Britain Pound' }),
   USD: new Account({ code: 'USD', name: 'United States Dollar' }),
@@ -13,7 +13,7 @@ class AccountsService extends BaseAccountsService {
     super('fxaaccs', initData)
   }
 
-  getAccounts = (): AccountData => {
+  getAccounts = (): AccountsData => {
     return this.getData()
   }
 
@@ -29,7 +29,7 @@ class AccountsService extends BaseAccountsService {
     this.valueError(value)
 
     const newAccount = { ...account, value }
-    const newAccountData: AccountData = {
+    const newAccountData: AccountsData = {
       ...data,
       [code]: { ...newAccount },
     }
@@ -53,12 +53,18 @@ class AccountsService extends BaseAccountsService {
     this.setData(newAccountData)
   }
 
-  transferFunds = ({ from, to, amount }: AccountTransferPayload) => {
+  transferFunds = ({
+    from,
+    to,
+    amount,
+  }: AccountTransferPayload): AccountsData => {
     if ([from, to, amount].some((v) => !v))
       throw new Error('Please provide all the data')
 
     this.debitAccount(from, amount)
     this.creditAccount(to, amount)
+
+    return this.getData()
   }
 }
 

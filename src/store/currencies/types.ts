@@ -6,20 +6,20 @@ export interface CurrenciesState {
   error: string | null
 }
 
-export interface CurrenciesFailed {
+export interface CurrenciesFailedPayload {
   payload: {
     error: string
   }
 }
 
-export interface CurrenciesSuccess {
+export interface CurrenciesSuccessPayload {
   payload: {
     data: CurrenciesData
   }
 }
 
 export enum currenciesTypes {
-  CURRENCIES_REQUEST = 'currencies/currenciesRequest',
-  CURRENCIES_FAILED = 'currencies/currenciesFailed',
-  CURRENCIES_SUCCESS = 'currencies/currenciesSuccess',
+  GET_CURRENCIES_REQUEST = 'currencies/getCurrenciesRequest',
+  GET_CURRENCIES_FAILED = 'currencies/getCurrenciesFailed',
+  GET_CURRENCIES_SUCCESS = 'currencies/getCurrenciesSuccess',
 }

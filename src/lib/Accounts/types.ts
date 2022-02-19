@@ -12,6 +12,6 @@ export interface AccountTransferPayload {
   amount: number
 }
 
-export interface AccountData {
+export interface AccountsData {
   [key: string]: Account
 }

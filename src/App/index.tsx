@@ -1,21 +1,29 @@
 import { useEffect } from 'react'
 import AccountsService from 'src/lib/Accounts/AccountsService'
-import { actions } from 'src/store/currencies'
+import { actions as currenciesActions } from 'src/store/currencies'
+import { actions as accountsActions } from 'src/store/accounts'
 import { useAppDispatch, useAppSelector } from 'src/store/hooks'
 
 function App() {
-  const { data } = useAppSelector(({ currencies }) => currencies)
   const dispatch = useAppDispatch()
+  const { data: accountsData } = useAppSelector(({ accounts }) => accounts)
+  const { data: currenciesData } = useAppSelector(
+    ({ currencies }) => currencies
+  )
 
   const service = new AccountsService()
 
   useEffect(() => {
-    const { rates } = data
+    const { rates } = currenciesData
+
+    if (Object.keys(accountsData).length === 0) {
+      dispatch(accountsActions.getAccountsRequest())
+    }
 
     if (Object.keys(rates).length === 0) {
-      dispatch(actions.currenciesRequest())
+      dispatch(currenciesActions.getCurrenciesRequest())
     }
-  }, [data, dispatch])
+  }, [currenciesData, accountsData, dispatch])
 
   const handleAccounts = (actions: 'credit' | 'debit') => {
     if (actions === 'credit') {
