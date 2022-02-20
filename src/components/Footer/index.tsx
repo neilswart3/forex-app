@@ -1,21 +1,26 @@
 import { useState } from 'react'
+import { useLocation, useNavigate } from 'react-router-dom'
+import { navs, getPathName } from 'src/lib'
 import Case from 'case'
-import navs from './navs'
 import * as Styled from './styles'
-
-type Value = 'home' | 'exchange' | 'add-account'
+import { NavValue } from 'src/lib/navs'
 
 const Footer: React.FC = () => {
-  const [value, setValue] = useState<Value>('home')
+  const { pathname } = useLocation()
+  const navigate = useNavigate()
+  const name: NavValue = getPathName(pathname)
+  const [value, setValue] = useState<NavValue>(name)
 
-  const handleChange = (_e: any, newValue: Value): void => {
+  const handleChange = (_e: any, newValue: NavValue): void => {
     setValue(newValue)
+    navigate(navs[newValue].path)
   }
 
   return (
     <Styled.Footer value={value} onChange={handleChange}>
-      {Object.entries(navs).map(([key, icon]) => (
+      {Object.entries(navs).map(([key, { icon }]) => (
         <Styled.FooterAction
+          key={key}
           value={Case.kebab(key)}
           label={Case.capital(key)}
           icon={icon}

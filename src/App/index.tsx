@@ -4,7 +4,7 @@ import AccountsService from 'src/lib/Accounts/AccountsService'
 import { actions as currenciesActions } from 'src/store/currencies'
 import { actions as accountsActions } from 'src/store/accounts'
 import { useAppDispatch, useAppSelector } from 'src/store/hooks'
-import { Accounts } from 'src/pages'
+import { Accounts, AddAccount, Exchange } from 'src/pages'
 
 function App() {
   const dispatch = useAppDispatch()
@@ -43,6 +43,8 @@ function App() {
 
   return (
     <Routes>
+      <Route path='/exchange' element={<Exchange />} />
+      <Route path='/add-account' element={<AddAccount />} />
       <Route path='/' element={<Accounts />} />
     </Routes>
     // <div className='App'>
