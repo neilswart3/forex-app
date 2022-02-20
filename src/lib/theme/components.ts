@@ -1,5 +1,4 @@
 import { Components } from '@mui/material'
-import { rgba } from 'polished'
 import colors from './colors'
 
 const components: Components = {
