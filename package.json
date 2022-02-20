@@ -17,6 +17,7 @@
     "@types/react": "^16.14.23",
     "@types/react-dom": "^16.9.14",
     "axios": "^0.26.0",
+    "case": "^1.6.3",
     "jest": "^27.5.1",
     "polished": "^4.1.4",
     "react": "^17.0.2",
