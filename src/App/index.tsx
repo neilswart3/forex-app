@@ -1,8 +1,10 @@
 import { useEffect } from 'react'
+import { Routes, Route } from 'react-router-dom'
 import AccountsService from 'src/lib/Accounts/AccountsService'
 import { actions as currenciesActions } from 'src/store/currencies'
 import { actions as accountsActions } from 'src/store/accounts'
 import { useAppDispatch, useAppSelector } from 'src/store/hooks'
+import { Accounts } from 'src/pages'
 
 function App() {
   const dispatch = useAppDispatch()
@@ -35,16 +37,19 @@ function App() {
     }
   }
 
-  const handleTransfer = () => {
-    service.transferFunds({ from: 'GBP', to: 'EUR', amount: 10 })
-  }
+  // const handleTransfer = () => {
+  //   service.transferFunds({ from: 'GBP', to: 'EUR', amount: 10 })
+  // }
 
   return (
-    <div className='App'>
-      <button onClick={() => handleAccounts('credit')}>credit</button>
-      <button onClick={() => handleAccounts('debit')}>debit</button>
-      <button onClick={handleTransfer}>Transfer EUR to GBP</button>
-    </div>
+    <Routes>
+      <Route path='/' element={<Accounts />} />
+    </Routes>
+    // <div className='App'>
+    //   <button onClick={() => handleAccounts('credit')}>credit</button>
+    //   <button onClick={() => handleAccounts('debit')}>debit</button>
+    //   <button onClick={handleTransfer}>Transfer EUR to GBP</button>
+    // </div>
   )
 }
 
