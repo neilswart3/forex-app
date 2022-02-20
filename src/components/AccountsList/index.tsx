@@ -6,19 +6,33 @@ import * as Styled from './styles'
 
 const AccountsList: React.FC = () => {
   const [accounts, setAccounts] = useState<Account[]>([])
-  const { data } = useAppSelector(({ accounts }) => accounts)
+  const { data: accountsData } = useAppSelector(({ accounts }) => accounts)
+  const { data: currenciesData } = useAppSelector(
+    ({ currencies }) => currencies
+  )
+
+  const base = currenciesData.base
 
   useEffect(() => {
-    const accountsArr = Object.values(data)
+    const accountsArr = Object.values(accountsData)
     setAccounts(accountsArr)
-  }, [data])
+  }, [accountsData, currenciesData])
 
   return (
     <Styled.AccountsList>
       {accounts.length > 0 &&
-        accounts.map((account) => (
-          <AccountCard key={account.id} data={account} />
-        ))}
+        accounts.map((account) => {
+          const exchange = currenciesData.rates[account.code] || 0
+
+          return (
+            <AccountCard
+              key={account.id}
+              data={account}
+              base={base}
+              exchange={exchange}
+            />
+          )
+        })}
     </Styled.AccountsList>
   )
 }
