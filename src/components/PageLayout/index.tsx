@@ -1,4 +1,5 @@
 import Header from '../Header'
+import Footer from '../Footer'
 import * as Styled from './styles'
 
 interface Props {
@@ -14,6 +15,7 @@ const PageLayout: React.FC<Props> = (props) => {
       <Styled.PageLayout className={className}>
         <Header title={title} />
         <Styled.PageLayoutMain>{children}</Styled.PageLayoutMain>
+        <Footer />
       </Styled.PageLayout>
     </Styled.PageLayoutWrap>
   )

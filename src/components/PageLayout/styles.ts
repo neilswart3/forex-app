@@ -7,7 +7,7 @@ export const PageLayoutWrap = styled.div`
 `
 export const PageLayout = styled.div`
   display: grid;
-  grid-template-rows: auto 1fr;
+  grid-template-rows: auto 1fr auto;
   height: 100vh;
   background-color: ${rgba(colors.white, 0.2)};
   backdrop-filter: blur(0.5rem);
