@@ -17,7 +17,7 @@ const ${name}: React.FC${props ? '<Props>' : ''} = (${
 export default ${name}
 `
 
-exports.styles = (name) => `import styled from '@emotion/styled'
+exports.styles = (name) => `import styled from '@emotion/styled/macro'
 
 export const ${name} = styled.div\`\`
 `

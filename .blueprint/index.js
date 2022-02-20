@@ -1,5 +1,5 @@
 const fs = require('fs')
-const { component, styles } = require('./templates')
+const { component, styles, test } = require('./templates')
 
 const [type] = process.argv.slice(2)
 const [relPath] = process.argv.slice(3)
@@ -26,11 +26,11 @@ fs.writeFile(
   writeFileErrorHandler
 )
 fs.writeFile(`${dir}/${name}/styles.ts`, styles(name), writeFileErrorHandler)
-fs.writeFile(
-  `${dir}/${name}/${name}.test.tsx`,
-  styles(name, props),
-  writeFileErrorHandler
-)
+// fs.writeFile(
+//   `${dir}/${name}/${name}.test.tsx`,
+//   test(name, props),
+//   writeFileErrorHandler
+// )
 
 fs.readFile(`${dir}/index.ts`, 'utf8', (err, data) => {
   if (err) throw err
@@ -40,14 +40,18 @@ fs.readFile(`${dir}/index.ts`, 'utf8', (err, data) => {
   let newComponents = [name]
   if (currentComponents) newComponents = [name, ...currentComponents].sort()
 
-  const fileContent = newComponents
-    .map(
-      (componentName) =>
-        `export { default as ${componentName} } from './${componentName}'\n`
-    )
+  const importStatements = newComponents
+    .map((importName) => `import ${importName} from './${importName}'\n`)
     .join('')
+  const exportStatements = `export {\n${newComponents
+    .map((component) => `  ${component},\n`)
+    .join('')}}\n`
 
-  fs.writeFile(`${dir}/index.ts`, fileContent, writeFileErrorHandler)
+  fs.writeFile(
+    `${dir}/index.ts`,
+    `${importStatements}\n${exportStatements}`,
+    writeFileErrorHandler
+  )
 
   console.log(`${name} has been created.`)
 })
